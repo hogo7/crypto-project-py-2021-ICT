@@ -1,0 +1,11 @@
+
+-get data from binance & save as csv & timefream  1 5 15 30 1H 4H 1D W M -- 
+--INPUT---
+-name of  crypto -req
+-requierd timefream = *
+-interval =1W
+-type
+
+___output___
+-csv
+--"inedx(DATE) open close high low vol "--
