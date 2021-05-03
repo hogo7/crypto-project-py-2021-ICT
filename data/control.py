@@ -12,8 +12,8 @@ import datetime as dt
 import os
 # %% 
 ##TODO make conncetion file
-api_key="VAdEuvwTAiuJyitceRUrKGHBziswsSrVjefyfphgSA7ux7tgujpMEf7uK6lNuRaP"
-key="Em37EGcV62iSYVYfAkhdTGtyCAvatYuBjZIWEdX49UKyZvY1tIN9ogjYY2R7Ogde"
+api_key="api key"
+key="SECRET"
 client = Client(api_key, key,{"timeout": 200})
 status = client.get_system_status()
 print(status)
