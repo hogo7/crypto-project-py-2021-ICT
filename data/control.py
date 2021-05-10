@@ -58,7 +58,20 @@ def get_Kline_csv(name,interval="1h",startin=dat(2017,1,1,00,1,1),endin=dat.now(
         df.to_csv("./csvs/"+name+"/"+startff+"-"+endff+"-"+name+"-"+interval+".csv",mode="w")
         print("successfuly created")
 # %%
-get_Kline_csv("BTCUSDT",interval="1d",startin=dat(2020,9,10,00,1,1),endin=dat(2020,12,10,00,1,1))
+def updateMainChart():
+    info=client.get_all_tickers()
+    name="latest-chart"
+    symdf=pd.DataFrame(columns=["symbol","price"],data=info)
+    if not os.path.exists('./csvs/'+name+'/'):
+        os.makedirs('./csvs/'+name+"/")
+        print("path successfuly created")
+    else:
+        print("folder found ")
+
+    symdf.to_csv("./csvs/"+name+"/mainChart.csv",mode="w")
+
+# %%
+##get_Kline_csv("BTCUSDT",interval="1d",startin=dat(2020,9,10,00,1,1),endin=dat(2020,12,10,00,1,1))
 
 # %%
 '''
