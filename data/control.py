@@ -17,7 +17,7 @@ key="SECRET"
 client = Client(api_key, key,{"timeout": 200})
 status = client.get_system_status()
 print(status)
-# %%
+# %% get data o f sepecifc symbole at any inteval any date scope
 def get_Kline_csv(name,interval="1h",startin=dat(2017,1,1,00,1,1),endin=dat.now()):
         start=startin.strftime("%d %m,%Y")
         startff=startin.strftime("%d%m%Y")
@@ -57,7 +57,8 @@ def get_Kline_csv(name,interval="1h",startin=dat(2017,1,1,00,1,1),endin=dat.now(
         df.set_index("date",drop=True,inplace=True)
         df.to_csv("./csvs/"+name+"/"+startff+"-"+endff+"-"+name+"-"+interval+".csv",mode="w")
         print("successfuly created")
-# %%
+        return "./csvs/"+name+"/"+startff+"-"+endff+"-"+name+"-"+interval+".csv"
+# %%this function use to update chart symbols and last price of them 
 def updateMainChart():
     info=client.get_all_tickers()
     name="latest-chart"
@@ -70,22 +71,23 @@ def updateMainChart():
 
     symdf.to_csv("./csvs/"+name+"/mainChart.csv",mode="w")
 
-# %%
+# %% def test area
 ##get_Kline_csv("BTCUSDT",interval="1d",startin=dat(2020,9,10,00,1,1),endin=dat(2020,12,10,00,1,1))
 
-# %%
+# %%data sample
+'''kline sample
+    { 0  1499040000000,      # Open time 
+        #1  "0.01634790",       # Open
+        #2 "0.80000000",       # High
+        #3   "0.01575800",       # Low
+        #4   "0.01577100",       # Close
+        #5   "148976.11427815",  # Volume
+        #6   1499644799999,      # Close time
+        #7   "2434.19055334",    # Quote asset volume
+        #8   308,                # Number of trades
+        #   "1756.87402397",    # Taker buy base asset volume
+        #   "28.46694368",      # Taker buy quote asset volume
+        #   "17928899.62484339" # Can be ignored }
 '''
-{ 0  1499040000000,      # Open time 
-#1  "0.01634790",       # Open
-#2 "0.80000000",       # High
-#3   "0.01575800",       # Low
-#4   "0.01577100",       # Close
-#5   "148976.11427815",  # Volume
-#6   1499644799999,      # Close time
-#7   "2434.19055334",    # Quote asset volume
-#8   308,                # Number of trades
-#   "1756.87402397",    # Taker buy base asset volume
-#   "28.46694368",      # Taker buy quote asset volume
-#   "17928899.62484339" # Can be ignored }'''
         
 
