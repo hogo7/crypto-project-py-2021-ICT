@@ -70,7 +70,7 @@ def updateMainChart():
         print("folder found ")
 
     symdf.to_csv("./csvs/"+name+"/mainChart.csv",mode="w")
-
+    return "./csvs/"+name+"/mainChart.csv"
 # %% def test area
 ##get_Kline_csv("BTCUSDT",interval="1d",startin=dat(2020,9,10,00,1,1),endin=dat(2020,12,10,00,1,1))
 
