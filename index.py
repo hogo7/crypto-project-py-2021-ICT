@@ -28,14 +28,19 @@ class TestStrategy(bt.Strategy):
         self.crossoverprice = bt.ind.CrossOver(self.data.close,sma2) #  # crossover signal
     def next(self):
         # Simply log the closing price of the series from the reference
-        if not self.position:  # not in the market
-            if self.crossoverprice > 0 and self.crossoversma > 0 :  # if fast crosses slow to the upside
-                self.buy()  # enter long
-
-        elif self.crossoversma < 0  or self.crossoverprice < 0:  # in the market & cross to the downside
+        if self.position and self.crossoverprice > 0 and self.crossoversma > 0  :  # not in the market  # if fast crosses slow to the upside
             self.close()
+            self.buy()  # enter long
 
-    
+        elif self.position and self.crossoversma < 0  or self.crossoverprice < 0:  # in the market & cross to the downside
+            self.close()
+            self.sell()
+        elif not self.position and self.crossoverprice > 0 and self.crossoversma > 0 :
+            self.buy()
+        
+        elif not self.position and self.crossoverprice < 0 and self.crossoversma < 0 :
+            self.sell()
+            
 # ---------------------------
 if __name__ == '__main__':
     datapath =ctrl.dirc
