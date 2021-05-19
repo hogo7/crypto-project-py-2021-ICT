@@ -37,7 +37,7 @@ class TestStrategy(bt.Strategy):
             time.sleep(1000)
         elif self.position and self.crossoversma < 0  or self.crossoverprice < 0:  # in the market & cross to the downside
             self.close()
-            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[close BTCUSDT"+str(self.data.datetime+"price ->"+str(self.data.close))+"]")
+            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[close BTCUSDT"+str(self.data.datetime) +"price ->"+str(self.data.close)+"]")
             time.sleep(1000)
         elif not self.position and self.crossoverprice > 0 and self.crossoversma > 0 :
             self.buy()
