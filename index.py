@@ -25,7 +25,7 @@ class TestStrategy(bt.Strategy):
         sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
         sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
         self.crossoversma = bt.ind.CrossOver(sma1, sma2)  # crossover signal
-        self.crossoverprice = bt.ind.CrossOver(sma2,self.data.close) #  # crossover signal
+        self.crossoverprice = bt.ind.CrossOver(self.data.close,sma2) #  # crossover signal
     def next(self):
         # Simply log the closing price of the series from the reference
         if not self.position:  # not in the market
