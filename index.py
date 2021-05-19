@@ -49,7 +49,7 @@ class TestStrategy(bt.Strategy):
 if __name__ == '__main__':
     datapath =ctrl.dirc
     data = btfeeds.GenericCSVData(
-    dataname=get_Kline_csv(name="BTCUSDT",interval="15m"),
+    dataname=get_Kline_csv(name="BTCUSDT",interval="4h"),
 
     fromdate=dat(2021, 1, 1),
     todate=dat.now(),
