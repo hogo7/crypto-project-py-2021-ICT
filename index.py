@@ -15,7 +15,7 @@ class TestStrategy(bt.Strategy):
     params = dict(
         pfast=10,  # period for the fast moving average
         pslow=30,   # period for the slow moving average
-        uri="#https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/sendMessage?chat_id=@WkingTech&text="
+        uri="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/sendMessage?chat_id=@WkingTech&text="
     )
 
     def log(self, txt, dt=None):
