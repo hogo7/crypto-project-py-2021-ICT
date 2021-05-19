@@ -14,15 +14,13 @@ import json
 f = open ('config.json', "r")
 conf = json.load(f)["config"]
 mainPath=conf["app"]["path"]
-# %% 
-##TODO make conncetion file
+dirc=mainPath+"/datas/"
+# ##TODO make conncetion file
 api_key=conf["credit"]["API_KEY"]
 key=conf["credit"]["API_SECRET"]
 client = Client(api_key,key,{"timeout": 2000})
 status = client.get_system_status()
 print(status)
-# %%
-conf["app"]["path"]
 # %% get data o f sepecifc symbole at any inteval any date scope
 def get_Kline_csv(name,interval="1h",startin=dat(2020,1,1,00,1,1),endin=dat.now()):
         start=startin.strftime("%d %m,%Y")
@@ -72,8 +70,6 @@ def get_Kline_csv(name,interval="1h",startin=dat(2020,1,1,00,1,1),endin=dat.now(
 # name="amir"
 # interval="1d"
 # a=mainPath+"/data/csvs/"+name+"/"+interval
-a=get_Kline_csv(name="ADAUSDT")
-a
 # %%this function use to update chart symbols and last price of them 
 def update_Main_Chart():
     info=client.get_all_tickers()

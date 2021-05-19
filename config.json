@@ -1,0 +1,13 @@
+{
+    "config":{
+            "credit":{
+                    "API_KEY":"VAdEuvwTAiuJyitceRUrKGHBziswsSrVjefyfphgSA7ux7tgujpMEf7uK6lNuRaP",
+                    "API_SECRET":"Em37EGcV62iSYVYfAkhdTGtyCAvatYuBjZIWEdX49UKyZvY1tIN9ogjYY2R7Ogde"
+            },
+            
+            "app":{
+                "path":"C:\/Users\/happy-pc\/Desktop\/binance"
+            }
+
+        }
+ }
