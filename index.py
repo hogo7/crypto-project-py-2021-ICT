@@ -24,16 +24,19 @@ class TestStrategy(bt.Strategy):
         # Keep a reference to the "close" line in the data[0] dataseries
         sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
         sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
-        self.crossover = bt.ind.CrossOver(sma1, sma2)  # crossover signal
-
+        self.crossoversma = bt.ind.CrossOver(sma1, sma2)  # crossover signal
+        self.crossoverprice = bt.ind.CrossOver(sma2,crossoverprice) #  # crossover signal
     def next(self):
         # Simply log the closing price of the series from the reference
         if not self.position:  # not in the market
-            if self.crossover > 0:  # if fast crosses slow to the upside
+            if self.crossoverprice > 0 and self.crossoversma > 0 :  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
         elif self.crossover < 0:  # in the market & cross to the downside
             self.close() 
+        elif self.position and self.crossoverprice < 0:
+                self.close() 
+
     
 # ---------------------------
 if __name__ == '__main__':
