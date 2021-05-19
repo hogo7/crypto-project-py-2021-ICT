@@ -33,15 +33,15 @@ class TestStrategy(bt.Strategy):
         if self.position and self.crossoverprice > 0 and self.crossoversma > 0  :  # not in the market  # if fast crosses slow to the upside
             self.close()
             self.buy()  # enter long
-            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[close last and buy BTCUSDT"+self.data.datetime.strftime("%Y-%m-%")+"price ->"+str(self.data.close)+"]")
+            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[close last and buy BTCUSDT"+str(self.data.datetime)+"price ->"+str(self.data.close)+"]")
             time.sleep(1000)
         elif self.position and self.crossoversma < 0  or self.crossoverprice < 0:  # in the market & cross to the downside
             self.close()
-            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[close BTCUSDT"+self.data.datetime.strftime("%Y-%m-%")+"price ->"+str(self.data.close)+"]")
+            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[close BTCUSDT"+str(self.data.datetime+"price ->"+str(self.data.close))+"]")
             time.sleep(1000)
         elif not self.position and self.crossoverprice > 0 and self.crossoversma > 0 :
             self.buy()
-            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[buy BTCUSDT"+self.data.datetime.strftime("%Y-%m-%")+"price ->"+str(self.data.close)+"]")
+            req.Request(method="get", url="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/?chat_id=WkingTech&text=[buy BTCUSDT"+str(self.data.datetime)+"price ->"+str(self.data.close)+"]")
             time.sleep(1000)
         
 
