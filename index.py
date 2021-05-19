@@ -32,7 +32,7 @@ class TestStrategy(bt.Strategy):
             if self.crossoverprice > 0 and self.crossoversma > 0 :  # if fast crosses slow to the upside
                 self.buy()  # enter long
 
-        elif self.crossoversma < 0  and self.crossoverprice < 0:  # in the market & cross to the downside
+        elif self.crossoversma < 0  or self.crossoverprice < 0:  # in the market & cross to the downside
             self.close()
 
     
