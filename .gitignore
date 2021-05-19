@@ -1,7 +1,8 @@
 Untracked files:
 data/csvs/*
 .vscode/settings.json
-data/config.yml
+data/config.json
 data/__pycache__/control.cpython-37.pyc
 csvs/BTCUSDT/10092020-10122020-BTCUSDT-1d.csv
 .gitignore
+unknown-0.0-py37_0.tar.bz2
