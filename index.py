@@ -35,9 +35,6 @@ class TestStrategy(bt.Strategy):
         elif self.crossover < 0:  # in the market & cross to the downside
             self.close() 
     
-
-
-
 # ---------------------------
 if __name__ == '__main__':
     datapath =ctrl.dirc
