@@ -10,48 +10,17 @@ import backtrader.feeds as btfeeds
 import pandas as pd
 import requests as req
 import time
+from analisys.control import TestStrategy
+from notfication.control import notfication
 # ----------------------------------
-class TestStrategy(bt.Strategy):
-    params = dict(
-        pfast=10,  # period for the fast moving average
-        pslow=30,   # period for the slow moving average
-        uri="https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/sendMessage?chat_id=@WkingTech&text="
-    )
-
-    def log(self, txt, dt=None):
-        ''' Logging function for this strategy'''
-        dt = dt or self.datas[0].datetime.date(0)
-        print('%s, %s' % (dt.isoformat(), txt))
-    
-    def __init__(self):
-        # Keep a reference to the "close" line in the data[0] dataseries
-        sma1 = bt.ind.SMA(period=self.p.pfast)  # fast moving average
-        sma2 = bt.ind.SMA(period=self.p.pslow)  # slow moving average
-        self.crossoversma = bt.ind.CrossOver(sma1, sma2)  # crossover signal
-        self.crossoverprice = bt.ind.CrossOver(self.data.close,sma2) #  # crossover signal
-    def next(self):
-        # Simply log the closing price of the series from the reference
-        if self.position and self.crossoverprice > 0 and self.crossoversma > 0  :  # not in the market  # if fast crosses slow to the upside
-            self.close()
-            self.buy()  # enter long
-            i=req.get(url=self.p.uri+"close and buy BTCUSDT"+str(self.data.datetime) +"price ->"+str(self.data.close))
-            time.sleep(1000)
-        elif self.position and self.crossoversma < 0  or self.crossoverprice < 0:  # in the market & cross to the downside
-            self.close()
-# https://api.telegram.org/bot1594781454:AAH14mA05vaGWSsiJyf7CFpL-_1c8hRph2k/sendMessage?chat_id=@WkingTech&text=%27aaaa
-            i=req.get(url=self.p.uri+"close BTCUSDT"+str(self.data.datetime) +"price ->"+str(self.data.close))
-            time.sleep(1000)
-        elif not self.position and self.crossoverprice > 0 and self.crossoversma > 0 :
-            self.buy()
-            i=req.get(url=self.p.uri+"buy BTCUSDT"+str(self.data.datetime) +"price ->"+str(self.data.close))
-            time.sleep(1000)
+bot = notfication()
         
 
 # ---------------------------
 if __name__ == '__main__':
     datapath =ctrl.dirc
     data = btfeeds.GenericCSVData(
-    dataname=get_Kline_csv(name="BTCUSDT",interval="4h"),
+    dataname=get_Kline_csv(name="BTCUSDT",interval="1h"),
 
     fromdate=dat(2021, 1, 1),
     todate=dat.now(),
