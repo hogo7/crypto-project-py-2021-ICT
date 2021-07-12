@@ -9,9 +9,11 @@ import backtrader as bt
 import backtrader.feeds as btfeeds
 import pandas as pd
 import requests as req
+import backtrader.analyzers as btanalyzers
 import time
 from analisys.control import TestStrategy
 from notfication.control import notfication
+import backtrader.strategies as btstrats
 # ----------------------------------
 bot = notfication()
         
@@ -20,7 +22,7 @@ bot = notfication()
 if __name__ == '__main__':
     datapath =ctrl.dirc
     data = btfeeds.GenericCSVData(
-    dataname=get_Kline_csv(name="BTCUSDT",interval="1h"),
+    dataname=get_Kline_csv(name="ETHUSDT",interval="1d",startin=dat(2019,1,1,12,30,30)),
 
     fromdate=dat(2021, 1, 1),
     todate=dat.now(),
@@ -38,12 +40,18 @@ if __name__ == '__main__':
     openinterest=-1)
     # Create a Data Feed
     cerebro = bt.Cerebro()
-    cerebro.addstrategy(TestStrategy)
+
+    cerebro.addstrategy(btstrats.SMA_CrossOver)
+    cerebro.addanalyzer(btanalyzers.PyFolio, _name='mysharpe')
     cerebro.broker.setcash(100000)
     cerebro.adddata(data)
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     cerebro.broker.setcommission(commission=0.002)
-    cerebro.run()
+    thestrats=cerebro.run()
+    thestrat = thestrats[0]
+    pyfolio = thestrats.analyzers.getbyname('pyfolio')
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-    cerebro.plot()
+    print('Sharpe Ratio:', thestrat.analyzers.mysharpe.get_analysis())
+    cerebro.plot()    
 # %%
+

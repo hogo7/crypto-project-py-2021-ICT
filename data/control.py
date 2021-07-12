@@ -22,7 +22,7 @@ client = Client(api_key,key,{"timeout": 2000})
 status = client.get_system_status()
 print(status)
 # %% get data o f sepecifc symbole at any inteval any date scope
-def get_Kline_csv(name,interval="1h",startin=dat(2020,1,1,00,1,1),endin=dat.now()):
+def get_Kline_csv(name,interval="1d",startin=dat(2021,1,1,00,1,1),endin=dat.now()):
         start=startin.strftime("%d %m,%Y")
         startff=startin.strftime("%d%m%Y")
         endff=endin.strftime("%d%m%Y")
