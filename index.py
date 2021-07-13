@@ -22,15 +22,11 @@ bot = notfication()
 if __name__ == '__main__':
     datapath =ctrl.dirc
     data = btfeeds.GenericCSVData(
-    dataname=get_Kline_csv(name="ETHUSDT",interval="1d",startin=dat(2019,1,1,12,30,30)),
-
-    fromdate=dat(2021, 1, 1),
+    dataname=get_Kline_csv(name="BTCUSDT",interval="1d",startin=dat(2019,1,1,12,30,30)),
+    fromdate=dat(2019,1,1),
     todate=dat.now(),
-
     nullvalue=0.0,
-
     dtformat=('%Y-%m-%d %H:%M:%S'),
-
     datetime=0,
     open=3,
     high=1,
@@ -42,16 +38,16 @@ if __name__ == '__main__':
     cerebro = bt.Cerebro()
 
     cerebro.addstrategy(btstrats.SMA_CrossOver)
-    cerebro.addanalyzer(btanalyzers.PyFolio, _name='mysharpe')
+    ##cerebro.addanalyzer(btanalyzers.PyFolio, _name='mysharpe')
     cerebro.broker.setcash(100000)
     cerebro.adddata(data)
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     cerebro.broker.setcommission(commission=0.002)
     thestrats=cerebro.run()
-    thestrat = thestrats[0]
-    pyfolio = thestrats.analyzers.getbyname('pyfolio')
+    # thestrat = thestrats[0]
+    # pyfolio = thestrats.analyzers.getbyname('pyfolio')
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-    print('Sharpe Ratio:', thestrat.analyzers.mysharpe.get_analysis())
+    # print('Sharpe Ratio:', thestrat.analyzers.mysharpe.get_analysis())
     cerebro.plot()    
 # %%
 

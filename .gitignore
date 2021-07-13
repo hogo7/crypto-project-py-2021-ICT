@@ -6,3 +6,5 @@ data/__pycache__/control.cpython-37.pyc
 csvs/BTCUSDT/10092020-10122020-BTCUSDT-1d.csv
 .gitignore
 unknown-0.0-py37_0.tar.bz2
+stats.html
+.ipynb_checkpoints/Untitled-checkpoint.ipynb
