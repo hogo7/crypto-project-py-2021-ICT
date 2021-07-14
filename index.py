@@ -15,7 +15,7 @@ from analisys.control import TestStrategy
 from notfication.control import notfication
 import backtrader.strategies as btstrats
 # ----------------------------------
-bot = notfication()
+# bot = notfication()
         
 
 # ---------------------------
@@ -36,18 +36,24 @@ if __name__ == '__main__':
     openinterest=-1)
     # Create a Data Feed
     cerebro = bt.Cerebro()
-
+#%%
     cerebro.addstrategy(btstrats.SMA_CrossOver)
-    ##cerebro.addanalyzer(btanalyzers.PyFolio, _name='mysharpe')
+    cerebro.addanalyzer(bt.analyzers.PyFolio,_name='pyfolio')
     cerebro.broker.setcash(100000)
     cerebro.adddata(data)
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     cerebro.broker.setcommission(commission=0.002)
-    thestrats=cerebro.run()
-    # thestrat = thestrats[0]
-    # pyfolio = thestrats.analyzers.getbyname('pyfolio')
+    results = cerebro.run()
+    strat = results[0]
+    pyfoliozer = strat.analyzers.getbyname('pyfolio')
+    returns, positions, transactions, gross_lev = pyfoliozer.get_pf_items()
+    returns.index = returns.index.tz_convert(None)
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-    # print('Sharpe Ratio:', thestrat.analyzers.mysharpe.get_analysis())
-    cerebro.plot()    
-# %%
+   
+    
+    # %%
+    import quantstats
+    quantstats.reports.html(returns, output='stats.html', title='BTC Sentiment')
 
+
+# %%
