@@ -10,8 +10,9 @@ import pathlib as path
 import json
 ##TODO make config file
 
+
 #%%
-f = open ('config.json', "r")
+f = open ('../config.json', "r")
 conf = json.load(f)["config"]
 mainPath=conf["app"]["path"]
 dirc=mainPath+"/datas/"
@@ -116,5 +117,10 @@ def get_all_hisData(interval="1d",startin=dat(2020,1,1,00,1,1),endin=dat.now()):
         #   "28.46694368",      # Taker buy quote asset volume
         #   "17928899.62484339" # Can be ignored }
 '''
-        
-
+#%%
+add=get_Kline_csv(name="btcusdt",interval="1d",startin=dat(2019,1,1))
+add
+#%% make oclh to hiken-ashi 
+def ctoh(address=None):
+    data=pd.read_csv(address)
+    
