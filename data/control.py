@@ -118,9 +118,53 @@ def get_all_hisData(interval="1d",startin=dat(2020,1,1,00,1,1),endin=dat.now()):
         #   "17928899.62484339" # Can be ignored }
 '''
 #%%
-add=get_Kline_csv(name="btcusdt",interval="1d",startin=dat(2019,1,1))
-add
+add=get_Kline_csv(name="ETHUSDT",interval="1h",startin=dat(2019,1,1))
+
+#%%
+#%%
+def ctoh(add,name,interval):
+    dirc=mainPath+"/data/csvs/"+name+"/"+interval
+    filename="data-hiken"
+    fileformat=".csv"
+    ##TODO make it right from here 
+    data=pd.read_csv(add)
+    open=[]
+    close=[]
+    high=[]
+    low=[]
+    open.append(None)
+    close.append(None)
+    high.append(None)
+    low.append(None)
+
+    for x in range(1,len(data)-1):
+        tempopen=0
+        tempclose=0
+        tempopen=(data["open"][x-1]+data["close"][x-1])/2
+        open.append(tempopen)
+        
+        tempclose=(data["open"][x]+data["close"][x]+data["low"][x]+data["high"][x])/4
+        close.append(tempclose)
+        
+        high.append(max(tempclose,tempopen,data["high"][x]))
+        
+        low.append(min(tempclose,tempopen,data["low"][x]))
+
+    hdata={"Date":data["date"][1:],"Open":open,"Low":low,"High":high,"Close":close}
+    hiken=pd.DataFrame(data=hdata)
+    hiken["Date"]=pd.to_datetime(hiken["Date"],infer_datetime_format=True)
+    hiken.set_index("Date",drop=True,inplace=True)
+    if not os.path.exists(dirc):
+        os.makedirs(dirc)
+        print("path successfuly created")
+    else:
+        print("folder found ")
+        ## noft -> number of trades
+        address=dirc+"/"+filename+fileformat 
+        hiken.to_csv(address,mode="w")
+        print("successfuly created")
+        return address
 #%% make oclh to hiken-ashi 
-def ctoh(address=None):
-    data=pd.read_csv(address)
-    
+a=ctoh(add=get_Kline_csv("BTCUSDT"),name="BTCUSDT",interval="1d")
+a
+# %%
