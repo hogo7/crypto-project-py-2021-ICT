@@ -12,7 +12,7 @@ import json
 
 
 #%%
-f = open ('../config.json', "r")
+f = open ('C:\/Users\/happy-pc\/Desktop\/binance\/amirfactory\/crypto-project-py-2021-ICT\/config.json', "r")
 conf = json.load(f)["config"]
 mainPath=conf["app"]["path"]
 dirc=mainPath+"/datas/"
@@ -118,7 +118,6 @@ def get_all_hisData(interval="1d",startin=dat(2020,1,1,00,1,1),endin=dat.now()):
         #   "17928899.62484339" # Can be ignored }
 '''
 #%%
-add=get_Kline_csv(name="ETHUSDT",interval="1h",startin=dat(2019,1,1))
 
 #%%
 #%%
@@ -165,6 +164,5 @@ def ctoh(add,name,interval):
         print("successfuly created")
         return address
 #%% make oclh to hiken-ashi 
-a=ctoh(add=get_Kline_csv("BTCUSDT"),name="BTCUSDT",interval="1d")
-a
+
 # %%

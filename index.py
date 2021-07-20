@@ -20,26 +20,28 @@ import backtrader.strategies as btstrats
 
 # ---------------------------
 if __name__ == '__main__':
-    datapath =ctrl.dirc
+    datapath =ctrl.dirc 
     data = btfeeds.GenericCSVData(
-    dataname=get_Kline_csv(name="BTCUSDT",interval="1d",startin=dat(2019,1,1,12,30,30)),
+    dataname=get_Kline_csv(name="BTCUSDT",interval="1h",startin=dat(2019,1,1,12,30,30)),
     fromdate=dat(2019,1,1),
     todate=dat.now(),
     nullvalue=0.0,
     dtformat=('%Y-%m-%d %H:%M:%S'),
     datetime=0,
-    open=3,
-    high=1,
-    low=2,
+    open=1,
+    high=2,
+    low=3,
     close=4,
     volume=5,
     openinterest=-1)
     # Create a Data Feed
     cerebro = bt.Cerebro()
 #%%
-    cerebro.addstrategy(btstrats.SMA_CrossOver)
+    cerebro.addstrategy(TestStrategy)
     cerebro.addanalyzer(bt.analyzers.PyFolio,_name='pyfolio')
+    cerebro.addsizer(bt.sizers.PercentSizer,percents=2)
     cerebro.broker.setcash(100000)
+    data.addfilter(bt.filters.Renko)
     cerebro.adddata(data)
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
     cerebro.broker.setcommission(commission=0.002)
@@ -49,11 +51,8 @@ if __name__ == '__main__':
     returns, positions, transactions, gross_lev = pyfoliozer.get_pf_items()
     returns.index = returns.index.tz_convert(None)
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
-   
-    
-    # %%
+    cerebro.plot()
     import quantstats
-    quantstats.reports.html(returns, output='stats.html', title='BTC Sentiment')
-                    
+    # quantstats.reports.html(returns, output='stats.html', title='BTC Sentiment')
 
 # %%
